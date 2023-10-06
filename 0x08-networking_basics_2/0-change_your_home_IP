@@ -1,15 +1,18 @@
-#!/usr/bin/env bash
-# Adds IP address to /etc/hosts
-# Check if running on Docker
-if grep -q docker /proc/1/cgroup; then
-    echo "Configuring hosts file..."
-else
-    echo "This script is intended to run on Docker."
-    exit 1
+# Check if running as root
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root" 
+   exit 1
 fi
 
-# Modify hosts file
-echo "127.0.0.2 localhost" | sudo tee -a /etc/hosts
-echo "8.8.8.8 facebook.com" | sudo tee -a /etc/hosts
+# Define the host and IP mappings
+HOSTS=(
+    "127.0.0.2 localhost"
+    "8.8.8.8 facebook.com"
+)
+
+# Append mappings to /etc/hosts
+for host in "${HOSTS[@]}"; do
+    echo "$host" >> /etc/hosts
+done
 
 echo "Hosts configuration completed."
