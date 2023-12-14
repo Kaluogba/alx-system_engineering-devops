@@ -3,5 +3,7 @@
 # configures nginx to run and listen to port 80
 
 rm /etc/nginx/sites-enabled/default
+# Configure nginx to listen on port 80 for all active IPv4 and IPs
 ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+# restart nginx
 service nginx restart
