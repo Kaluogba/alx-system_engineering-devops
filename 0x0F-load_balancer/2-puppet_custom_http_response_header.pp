@@ -1,4 +1,4 @@
- Setup New Ubuntu server with nginx
+# Setup New Ubuntu server with nginx
 # and add a custom HTTP header
 
 exec { 'update system':
